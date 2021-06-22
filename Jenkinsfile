@@ -14,8 +14,15 @@ pipeline {
         stage('package') {
             steps { 
                 sh 'mvn package'
-                emailext body: '${BUILD_NUMBER}', subject: 'the build has completed with Status ${BUILD_STATUS}', to: 'devopsxprts@gmail.com'
             }
         }
     }
+    post {
+      success {
+          emailext body: '${BUILD_NUMBER}', subject: 'Hurray!!! the build has completed with Status ${BUILD_STATUS}', to: 'devopsxprts@gmail.com'
+      }
+      failure {
+          emailext body: '${BUILD_NUMBER}', subject: 'Alas!! the build has completed with Status ${BUILD_STATUS}', to: 'devopsxprts@gmail.com'
+      }
+}
 }
