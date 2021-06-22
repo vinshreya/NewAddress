@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Compile') {
             steps { 
-                sh 'mvnnn compile'
+                sh 'mvn compile'
             }
         }
         stage('test') {
@@ -17,12 +17,4 @@ pipeline {
             }
         }
     }
-    post {
-      success {
-          emailext body: '${BUILD_NUMBER}', subject: 'Hurray!!! the build has completed with Status ${BUILD_STATUS}', to: 'devopsxprts@gmail.com'
-      }
-      failure {
-          emailext body: '${BUILD_NUMBER}', subject: 'Alas!! the build has completed with Status ${BUILD_STATUS}', to: 'devopsxprts@gmail.com'
-      }
-}
 }
