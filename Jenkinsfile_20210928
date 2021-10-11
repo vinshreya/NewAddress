@@ -13,7 +13,6 @@ pipeline {
   }
   stage ('create docker image') {
    steps {
-    sh 'cp addressbook_main/target/addressbook.war .'
     sh 'sudo docker build -t addressbook:20210928.$BUILD_NUMBER .'
    }
   }
