@@ -1,0 +1,21 @@
+pipeline {
+ agent any
+ stages {
+  stage ('compile the application') {
+   steps {
+    sh 'mvn compile'
+   }
+  }
+  stage ('Generate War package') {
+   steps {
+    sh 'mvn package'
+   }
+  }
+  stage ('create docker image') {
+   steps {
+    sh 'cp addressbook_main/target/addressbook.war .'
+    sh 'sudo docker build -t addressbook:20210928.$BUILD_NUMBER .'
+   }
+  }
+ }
+}
