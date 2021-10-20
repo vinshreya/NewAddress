@@ -16,5 +16,10 @@ pipeline {
     sh 'sudo docker build -t addressbook:20210928.$BUILD_NUMBER .'
    }
   }
+#  stage ('update kubernetes deployment') {
+#   steps {
+#    sh 'kubectl set image deployment addressbook addressbook=addressbook:20210928.$BUILD_NUMBER'
+#   }
+#  }
  }
 }
