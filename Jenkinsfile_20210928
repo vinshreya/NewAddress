@@ -18,7 +18,12 @@ pipeline {
   }
   stage ('upload image to docker registry') {
    steps {
-    sh 'sudo docker push devopsxprts/addressbook:20210928.$BUILD_NUMBER'
+    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
+     sh '''
+           sudo docker login --username $user --password $pass
+           sudo docker push devopsxprts/addressbook:20210928.$BUILD_NUMBER
+        '''
+    }
    }   
   }
   stage ('update kubernetes deployment') {
