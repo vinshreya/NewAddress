@@ -21,4 +21,4 @@ spec:
                           name: addressbook
                           env:
                                   - name: TOMCAT_USER
-                                  value: admin
+                                    value: amdin
