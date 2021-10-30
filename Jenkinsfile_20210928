@@ -1,5 +1,8 @@
 pipeline {
  agent any
+ environment {
+  DOCKER = credentials ('Vinay_DockerHub')
+ }
  stages {
   stage ('compile the application') {
    steps {
@@ -13,7 +16,20 @@ pipeline {
   }
   stage ('create docker image') {
    steps {
-    sh 'sudo docker build -t devopsxprts/addressbook:20210928.$BUILD_NUMBER .'
+    sh 'sudo docker build -t vinshreyadock/addressbook:20210928.$BUILD_NUMBER .'
+   }
+  }
+  stage ('upload image to docker registry') {
+   steps {
+     sh '''
+           sudo docker login --username $DOCKER_USR --password $DOCKER_PSW
+           sudo docker push vinshreyadock/addressbook:20210928.$BUILD_NUMBER
+        '''
+   }   
+  }
+  stage ('update kubernetes deployment') {
+   steps {
+    sh 'kubectl set image deployment addressbook container=devopsxprts/addressbook:20210928.$BUILD_NUMBER --record'
    }
   }
  }
