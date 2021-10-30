@@ -19,3 +19,6 @@ spec:
                         containers:
                         - image: vinshreyadock/addressbook:20210928.5
                           name: addressbook
+                          env:
+                                  - name: TOMCAT_USER
+                                  value: admin
