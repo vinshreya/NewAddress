@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        labels:
+                app: addressbook-deployment
+        name: addressbook-deployment
+spec:
+        replicas: 2
+        selector:
+                matchLabels:
+                        app: addressbook-deployment
+        strategy: {}
+        template:
+                metadata:
+                        name: addressbook-metadata
+                        labels:
+                                app: addressbook-deployment
+                spec:
+                        containers:
+                        - image: vinshreyadock/addressbook:20210928.5
+                          name: addressbook
